@@ -8,6 +8,7 @@ def bfs(start_node): #need_visit 와 visited 큐
             visited.append(node)
             need_visit.extend(dic[node])
     return visited
+#
 
 
 def dfs(start_node): #need_visite스택 visited 큐
