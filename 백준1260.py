@@ -1,49 +1,40 @@
-#실패
-def bfs(start_node): #need_visit 와 visited 큐
-    visited, need_visit = list(), list()
-    need_visit.append(start_node)
-    while need_visit:
-        node = need_visit.pop(0)
-        if node not in visited:
-            visited.append(node)
-            need_visit.extend(dic[node])
-    return visited
-#
+def dfs(start_node):
+    visited_dfs[start_node] = 1
+    print(start_node, end=' ')
+    for i in graph[start_node]:
+        if visited_dfs[i] == 0:
+            dfs(i)
 
-
-def dfs(start_node): #need_visite스택 visited 큐
-    visited, need_visit = list(), list()
-    need_visit.append(start_node)
-    while need_visit:
-        node = need_visit.pop() #스택
-        if node not in visited:
-            visited.append(node)
-            need_visit.extend(dic[node])
-    return visited
+def bfs(start_node):
+    visited_bfs[start_node] = 1
+    result_bfs = []
+    queue = []
+    queue.append(start_node)
+    while queue:
+        current = queue.pop(0)
+        result_bfs.append(current)
+        for i in graph[current]:
+            if not visited_bfs[i]:
+                queue.append(i)
+                visited_bfs[i] = 1
+    return result_bfs
 
 
 N, M, V = map(int, input().split())
-dic = dict()
+graph = [[] for _ in range(N + 1)]
+visited_dfs = [0]*(N + 1)
+visited_bfs = [0]*(N + 1)
+
 for _ in range(M):
-    imsi = []
     a, b = map(int, input().split())
-    if a not in dic:
-        dic[a] = [b]
-    else:
-        imsi.extend(dic.get(a))
-        imsi.extend([b])
-        dic[a] = imsi
-    imsi = []
-    if b not in dic:
-        dic[b] = [a]
-    else:
-        imsi.extend(dic.get(b))
-        imsi.extend([a])
-        dic[b] = imsi
-dfs_result = dfs(V)
-bfs_result = bfs(V)
-for i in range(len(dfs_result)):
-    print(dfs_result[i], end=' ')
+    graph[a].append(b)
+    graph[b].append(a)
+for i in range(N + 1):
+    graph[i].sort()
+
+dfs(V)
+
 print()
-for i in range(len(bfs_result)):
-    print(bfs_result[i], end=' ')
+ans_bfs = bfs(V)
+for i in range(len(ans_bfs)):
+    print(ans_bfs[i], end= ' ')
