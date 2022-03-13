@@ -10,6 +10,7 @@ for i in range(len(num_list)):
     if max_value < num_list[i]:
         max_index = i+1
         max_value = num_list[i]
-print(max_index)
 print(max_value)
+print(max_index)
+
         
