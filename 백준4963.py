@@ -35,6 +35,3 @@ while True:
                 bfs(i, j)
                 count += 1
     print(count)
-
-
-    
